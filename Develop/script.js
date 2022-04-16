@@ -18,8 +18,158 @@ THEN a password is generated that matches the selected criteria
 WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page */
 
+//Phases
+//1. Figure out password stength/criteria
+//  a. Ask for lengyh
 
-var numbers= '1234567890';
+
+// Phases
+// 1.  Figure out password strength/criteria
+// a. Ask for length.  Store it
+// aa. Check to see at least 8
+// ab. Check to see if not more than 128
+// ac. Cannot be null/undefined.  Has to be there.
+// b. Ask for numbers. Store it
+// ba. Confirm Yes/No
+// c. Ask for lowercase letters. Store it
+// ca. Confirm Yes/No
+// d. Ask for uppercase letters. Store it
+// da. Confirm Yes/No
+// e. Ask for special characters. Store it
+// ea. Confirm Yes/No
+// f. Confirm if at least one of these 4 are true.  If they all are false/declined, let user know that they need to choose one.
+// ==============================================================================================
+// 2.  Build List of Characters to use
+// a. if user wants numbers.  Build list of numbers.  Store it.
+// b. if user wants lowercase. Build list of lowercase letters. Store it.
+// c. If user wants uppercase.  Build list of uppercase letters. Store it.
+// d. if user wants special characters.  Build list of special characters. Store it.
+// ==============================================================================================
+// 3.  Create Random Password
+// a. Look at password criteria.
+// b. Grab one random character from whichever criteria is true.  Add to generated password until character type criteria is met.
+// c. Based on what criteria is selected.  Join character to form a giant pool of characters we can use.
+// d. Randomly select one character from new giant pool and add it to the generated password.
+// e. Repeat until password is correct length specified.
+// f. Send back newly formed password
+// ==============================================================================================
+// 4.  Display Random Password
+// a.  User provided function to call password code
+// ==============================================================================================
+var MINIMUM_PASSWORD_LENGTH = 8;
+var MAXIMUM_PASSWORD_LENGTH = 128;
+var STARTING_RANGE_UPPERCASE_CODE = 65;
+var ENDING_RANGE_UPPERCASE_CODE = 90;
+var STARTING_RANGE_LOWERCASE_CODE = 97;
+var ENDING_RANGE_LOWERCASE_CODE = 122;
+var THE_SPECIAL_CHARACTER_CODE = arrayFromLowToHigh(33-47).concat(arrayFromLowToHigh(58-64)).concat(arrayFromLowToHigh(91-96)).concat(arrayFromLowToHigh(123-126));//notworking.
+var STARTING_NUMBER_CODE = 48;
+var ENDING_NUMBER_CODE = 57;
+
+function getPasswordLength() {
+  var passwordLength = Number.parseInt(
+    prompt("How long would you like your password to be? (Between 8 and 128 characters.)")
+  );
+  console.log("This is how long I want my password to be:", passwordLength);
+
+  if (Number.isNaN(passwordLength)) {
+    alert(
+      "Your requested length was not a number or not defined. Please enter the correct criteria."
+    );
+    getPasswordLength();
+  }
+
+  return passwordLength;
+}
+
+var requestedPasswordLength = getPasswordLength();//????
+console.log("This is the password that the user requested:", requestedPasswordLength);//???
+
+var wantsNumbers=confirm("Would you like numbers?");
+var wantsLowerCaseLetters=confirm("Would you like lowercase letters?");
+var wantsUpperCaseLetters=confirm("Would you like uppercase letters?");
+var wantsSpecialCharacters=confirm("Would you like special characters?");
+
+if (!wantsNumbers && !wantsLowerCaseNumbers && !wantsUpperCaseNumbers && !wantsSpecialCharacters) {
+  alert("Please chose at least one option.")
+}
+//not looping correctly back to top.
+
+console.log("Numbers", wantsNumbers, "Lowercase", wantsLowerCaseLetters, "Upper case", wantsUpperCaseLetters, "Special Characters", wantsSpecialCharacters);
+
+
+
+function buildCharacterPool(startingRangeCode, endingRangeCode) {
+  var characterPool = [];
+  for (var i = startingRangeCode; i <= endingRangeCode; i++) {
+    characterPool.push(String.fromCharCode(i));
+  }
+
+  return characterPool;
+}
+
+var upperCaseLetterPool = buildCharacterPool(
+  STARTING_RANGE_UPPERCASE_CODE,
+  ENDING_RANGE_UPPERCASE_CODE,
+);
+
+var lowerCaseLetterPool = buildCharacterPool(
+  STARTING_RANGE_LOWERCASE_CODE,
+  ENDING_RANGE_LOWERCASE_CODE,
+);
+
+var numberPool = buildCharacterPool(
+  STARTING_NUMBER_CODE,
+  ENDING_NUMBER_CODE,
+);
+
+var specialCharacterPool = buildCharacterPool(
+  THE_SPECIAL_CHARACTER_CODE,
+)//not working
+
+console.log("Uppercase character pool", upperCaseLetterPool, "Lowercase character pool", lowerCaseLetterPool, "Numbers Pool", numberPool, "special char", specialCharacterPool);
+
+function generatedPassword() {
+  var generatedPassword = "";
+  if (wantsLowerCaseLetters) {
+    var randomLowerCaseLetter = lowercaseCharacterPool[
+      Math.floor(Math.random() * lowercaseCharacterPool.length +1)];
+    console.log("random lowercase", randomLowerCaseLetter);
+    generatedPassword += randomLowerCaseLetter;
+    characterPool.concat(lowercaseCharacterPool);
+  }
+  
+  if (wantsUpperCaseLetters) {
+    var randomUpperCaseLetter = upperCaseLetterPool[
+      Math.floor(Math.random() * upperCaseLetterPool.length +1)
+    ];
+    console.log("random uppercase", randomUpperCaseLetter);
+    generatedPassword += randomUpperCaseLetter;
+    characterPool = characterPool.concat(upperCaseLetterPool);
+    console.log(characterPool);
+  }
+  for (var i = generatedPassword.length; i < requestedPasswordLength; i++){
+    var randomCharacter = characterPool[Math.floor(math.random() * characterPool.length)];
+    generatedPassword += randomCharascter;
+  }
+  
+  return generatedPassword;
+}
+
+
+
+
+function arrayFromLowToHigh(low, high) {
+  const array = []
+  for (let i = low; i <= high; i++) {
+    array.push(i)
+  }
+  return array
+}//not working
+
+
+
+/*var numbers= '1234567890';
 var upperCase='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var lowerCase='abcdefghijklmnopqrstuv';
 var symbols='!@#$%^&*(){}[]';
@@ -70,7 +220,8 @@ var lastSegmentOfPw = length - (segmentOfPw * 3);
 //Do you want numbers?
 //Do you want special characters?
 //you must enter a vailid pw number
-// You must pick at least one option
+// You must pick at least one option*/
+
 
 
 
