@@ -138,17 +138,19 @@ console.log("Uppercase character pool", upperCaseLetterPool, "Lowercase characte
 
 function generatedPassword() {
   var generatedPassword = "";
+  var characterPool = [];
+
   if (wantsLowerCaseLetters) {
-    var randomLowerCaseLetter = lowercaseCharacterPool[
-      Math.floor(Math.random() * lowercaseCharacterPool.length +1)];
+    var randomLowerCaseLetter = lowerCaseLetterPool[
+      Math.floor(Math.random() * lowerCaseLetterPool.length + 1)];
     console.log("random lowercase", randomLowerCaseLetter);
     generatedPassword += randomLowerCaseLetter;
-    characterPool.concat(lowercaseCharacterPool);
+    characterPool.concat(lowerCaseLetterPool);
   }
   
   if (wantsUpperCaseLetters) {
     var randomUpperCaseLetter = upperCaseLetterPool[
-      Math.floor(Math.random() * upperCaseLetterPool.length +1)
+      Math.floor(Math.random() * upperCaseLetterPool.length + 1)
     ];
     console.log("random uppercase", randomUpperCaseLetter);
     generatedPassword += randomUpperCaseLetter;
@@ -156,14 +158,13 @@ function generatedPassword() {
     console.log(characterPool);
   }
   for (var i = generatedPassword.length; i < requestedPasswordLength; i++){
-    var randomCharacter = characterPool[Math.floor(math.random() * characterPool.length)];
-    generatedPassword += randomCharascter;
+    var randomCharacter = characterPool[Math.floor(Math.random() * characterPool.length + 1)];
+    generatedPassword += randomCharacter;
   }
   
   return generatedPassword;
 }
-
-
+generatedPassword();
 
 
 function arrayFromLowToHigh(low, high) {
