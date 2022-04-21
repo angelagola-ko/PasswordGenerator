@@ -62,7 +62,12 @@ var STARTING_RANGE_UPPERCASE_CODE = 65;
 var ENDING_RANGE_UPPERCASE_CODE = 90;
 var STARTING_RANGE_LOWERCASE_CODE = 97;
 var ENDING_RANGE_LOWERCASE_CODE = 122;
-var THE_SPECIAL_CHARACTER_CODE = arrayFromLowToHigh(33-47).concat(arrayFromLowToHigh(58-64)).concat(arrayFromLowToHigh(91-96)).concat(arrayFromLowToHigh(123-126));//notworking.
+//var THE_SPECIAL_CHARACTER_CODE = arrayFromLowToHigh(33,47)
+//.concat(arrayFromLowToHigh(58,64))
+//.concat(arrayFromLowToHigh(91,96))
+//.concat(arrayFromLowToHigh(123,126));//notworking.
+var THE_SPECIAL_CHARACTER_CODE = ['@','%','+','\\','/',"'",'!','#','$','^','?',':',',',')',
+  '(','}','{',']','[','~','-','_','.'];
 var STARTING_NUMBER_CODE = 48;
 var ENDING_NUMBER_CODE = 57;
 
@@ -130,11 +135,7 @@ var numberPool = buildCharacterPool(
   ENDING_NUMBER_CODE,
 );
 
-var specialCharacterPool = buildCharacterPool(
-  THE_SPECIAL_CHARACTER_CODE,
-)//not working
-
-console.log("Uppercase character pool", upperCaseLetterPool, "Lowercase character pool", lowerCaseLetterPool, "Numbers Pool", numberPool, "special char", specialCharacterPool);
+console.log("Uppercase character pool", upperCaseLetterPool, "Lowercase character pool", lowerCaseLetterPool, "Numbers Pool", numberPool, "special char", THE_SPECIAL_CHARACTER_CODE);
 
 function generatedPassword() {
   var generatedPassword = "";
@@ -145,21 +146,36 @@ function generatedPassword() {
       Math.floor(Math.random() * lowerCaseLetterPool.length + 1)];
     console.log("random lowercase", randomLowerCaseLetter);
     generatedPassword += randomLowerCaseLetter;
-    characterPool.concat(lowerCaseLetterPool);
+    characterPool = characterPool.concat(lowerCaseLetterPool);
   }
   
   if (wantsUpperCaseLetters) {
     var randomUpperCaseLetter = upperCaseLetterPool[
-      Math.floor(Math.random() * upperCaseLetterPool.length + 1)
-    ];
+      Math.floor(Math.random() * upperCaseLetterPool.length + 1)];
     console.log("random uppercase", randomUpperCaseLetter);
     generatedPassword += randomUpperCaseLetter;
     characterPool = characterPool.concat(upperCaseLetterPool);
+  }
+
+  if (wantsNumbers) {
+    var randomNumber = numberPool[Math.floor(Math.random() * numberPool.length + 1)];
+    console.log("random number", randomNumber);
+    generatedPassword += randomNumber;
+    characterPool = characterPool.concat(numberPool);
+  }
+
+  if(wantsSpecialCharacters) {
+    var randomSpecialCharacter = THE_SPECIAL_CHARACTER_CODE[Math.floor(Math.random() * THE_SPECIAL_CHARACTER_CODE.length +1)];
+    console.log("random special character", randomSpecialCharacter);
+    generatedPassword += randomSpecialCharacter;
+    characterPool = characterPool.concat(THE_SPECIAL_CHARACTER_CODE);
     console.log(characterPool);
   }
+
   for (var i = generatedPassword.length; i < requestedPasswordLength; i++){
     var randomCharacter = characterPool[Math.floor(Math.random() * characterPool.length + 1)];
     generatedPassword += randomCharacter;
+    return generatedPassword;
   }
   
   return generatedPassword;
@@ -167,13 +183,13 @@ function generatedPassword() {
 generatedPassword();
 
 
-function arrayFromLowToHigh(low, high) {
-  const array = []
-  for (let i = low; i <= high; i++) {
-    array.push(i)
-  }
-  return array
-}//not working
+//function arrayFromLowToHigh(low, high) {
+//  const array = [];
+//  for (let i = low; i <= high; i++) {
+//    array.push(i)
+//  }
+//  return array
+//}//not working
 
 
 
