@@ -79,6 +79,12 @@ function getPasswordLength() {
     getPasswordLength();
   }
 
+  if (passwordLength < MINIMUM_PASSWORD_LENGTH || passwordLength > MAXIMUM_PASSWORD_LENGTH) {
+    alert("Your password does not meet the length requirements of code. Please pick between 8-128 characters."
+    );
+    getPasswordLength();
+  }
+
   return passwordLength;
 }
 
@@ -90,9 +96,10 @@ var wantsLowerCaseLetters=confirm("Would you like lowercase letters?");
 var wantsUpperCaseLetters=confirm("Would you like uppercase letters?");
 var wantsSpecialCharacters=confirm("Would you like special characters?");
 
-if (!wantsNumbers && !wantsLowerCaseNumbers && !wantsUpperCaseNumbers && !wantsSpecialCharacters) {
-  alert("Please chose at least one option.")
-}
+if (!wantsNumbers && !wantsLowerCaseLetters && !wantsUpperCaseLetters && !wantsSpecialCharacters) {
+  alert("No Character types were selected. Please chose at least one option.");
+  getPasswordLength();
+};
 //not looping correctly back to top.
 
 console.log("Numbers", wantsNumbers, "Lowercase", wantsLowerCaseLetters, "Upper case", wantsUpperCaseLetters, "Special Characters", wantsSpecialCharacters);
