@@ -1,8 +1,8 @@
 # Password Generator
 
-A website that asks for users input to generate a random password.
+A website that asks for user input to generate a random password.
 
-Built With JavaScript/HTML/CSS.
+Built With JS/HTML/CSS.
 
 Website https://angelagola-ko.github.io/PasswordGenerator/
 
