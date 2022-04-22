@@ -162,6 +162,11 @@ function generatedPassword() {
     console.log("random number", randomNumber);
     generatedPassword += randomNumber;
     characterPool = characterPool.concat(numberPool);
+//    if (randomNumber === 0) {
+//      generatedPassword += 0;
+//      console.log("random number", 0);
+//    }
+
   }
 
   if(wantsSpecialCharacters) {
@@ -181,7 +186,8 @@ function generatedPassword() {
   return generatedPassword;
 }
 generatedPassword();
-
+//random special character undefined
+//random number undefined - FOR ZERO '0'
 
 //function arrayFromLowToHigh(low, high) {
 //  const array = [];
