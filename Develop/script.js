@@ -62,10 +62,10 @@ var STARTING_RANGE_UPPERCASE_CODE = 65;
 var ENDING_RANGE_UPPERCASE_CODE = 90;
 var STARTING_RANGE_LOWERCASE_CODE = 97;
 var ENDING_RANGE_LOWERCASE_CODE = 122;
-var THE_SPECIAL_CHARACTER_CODE = ['@','%','+','\\','/',"'",'!','#','$','^','?',':',',',')',
-  '(','}','{',']','[','~','-','_','.'];
 var STARTING_NUMBER_CODE = 48;
 var ENDING_NUMBER_CODE = 57;
+var THE_SPECIAL_CHARACTER_CODE = ['@','%','+','\\','/',"'",'!','#','$','^','?',':',',',')',
+  '(','}','{',']','[','~','-','_','.'];
 
 function getPasswordLength() {
   var passwordLength = Number.parseInt(
@@ -81,19 +81,12 @@ function getPasswordLength() {
   }
 
   if (passwordLength < MINIMUM_PASSWORD_LENGTH || passwordLength > MAXIMUM_PASSWORD_LENGTH) {
-    alert("Your password does not meet the length requirements of code. Please pick between 8-128 characters."
+    alert("Your password does not meet the length requirements of code. (Between 8-128 characters.)"
     );
     getPasswordLength();
   }
   return passwordLength;
 }
-
-
-//not looping correctly back to top.
-
-//console.log("Numbers", wantsNumbers, "Lowercase", wantsLowerCaseLetters, "Upper case", wantsUpperCaseLetters, "Special Characters", THE_SPECIAL_CHARACTER_CODE);
-
-
 
 function buildCharacterPool(startingRangeCode, endingRangeCode) {
   var characterPool = [];
@@ -119,13 +112,11 @@ var numberPool = buildCharacterPool(
   ENDING_NUMBER_CODE,
 );
 
-console.log("Uppercase character pool", upperCaseLetterPool, "Lowercase character pool", lowerCaseLetterPool, "Numbers Pool", numberPool, "special char", THE_SPECIAL_CHARACTER_CODE);
-
 function generatedPassword() {
   var generatedPassword = "";
   var characterPool = [];
-  var requestedPasswordLength = getPasswordLength();//????
-console.log("This is the password that the user requested:", requestedPasswordLength);//???
+  var requestedPasswordLength = getPasswordLength();
+  // Set to false for do/while loop.
   var wantsNumbers=false;
   var wantsLowerCaseLetters=false;
   var wantsUpperCaseLetters=false;
@@ -142,11 +133,11 @@ do {
 }
 while (!wantsNumbers && !wantsLowerCaseLetters && !wantsUpperCaseLetters && !wantsSpecialCharacters);
 
-
+// Makes sure there is at least one of each selected in the password. 
+// To check add:    console.log("random lowercase", randomLowerCaseLetter); (etc.)
   if (wantsLowerCaseLetters) {
     var randomLowerCaseLetter = lowerCaseLetterPool[
-      Math.floor(Math.random() * lowerCaseLetterPool.length)];
-    console.log("random lowercase", randomLowerCaseLetter);
+    Math.floor(Math.random() * lowerCaseLetterPool.length)];
     generatedPassword += randomLowerCaseLetter;
     characterPool = characterPool.concat(lowerCaseLetterPool);
   }
@@ -154,14 +145,12 @@ while (!wantsNumbers && !wantsLowerCaseLetters && !wantsUpperCaseLetters && !wan
   if (wantsUpperCaseLetters) {
     var randomUpperCaseLetter = upperCaseLetterPool[
       Math.floor(Math.random() * upperCaseLetterPool.length)];
-    console.log("random uppercase", randomUpperCaseLetter);
     generatedPassword += randomUpperCaseLetter;
     characterPool = characterPool.concat(upperCaseLetterPool);
   }
 
   if (wantsNumbers) {
     var randomNumber = numberPool[Math.floor(Math.random() * numberPool.length)];
-    console.log("random number", randomNumber);
     generatedPassword += randomNumber;
     characterPool = characterPool.concat(numberPool);
   }
@@ -174,11 +163,11 @@ while (!wantsNumbers && !wantsLowerCaseLetters && !wantsUpperCaseLetters && !wan
     console.log(characterPool);
   }
 
-  for (var i = generatedPassword.length; i < requestedPasswordLength; i++){
-    var randomCharacter = characterPool[Math.floor(Math.random() * characterPool.length + 1)];
+  for (var i = generatedPassword.length; i < requestedPasswordLength; i++) {
+    var randomCharacter = characterPool[Math.floor(Math.random() * characterPool.length)];
     generatedPassword += randomCharacter;
   }
-  console.log(generatedPassword);
+
   writePassword(generatedPassword);
 
 }
@@ -186,9 +175,9 @@ while (!wantsNumbers && !wantsLowerCaseLetters && !wantsUpperCaseLetters && !wan
 
 // Get references to the #generate element/*/
 var generateBtn = document.querySelector("#generate");
-/*
+
 // Write password to the #password input
-*/function writePassword(generatedPassword) {
+  function writePassword(generatedPassword) {
   var passwordText = document.querySelector("#password");
   passwordText.value = generatedPassword;
 }
