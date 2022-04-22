@@ -1,4 +1,4 @@
-# Password Generator Starter Code
+# Password Generator
 
 A website that asks for users input to generate a random password.
 
