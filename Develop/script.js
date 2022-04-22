@@ -85,25 +85,13 @@ function getPasswordLength() {
     );
     getPasswordLength();
   }
-
   return passwordLength;
 }
 
-var requestedPasswordLength = getPasswordLength();//????
-console.log("This is the password that the user requested:", requestedPasswordLength);//???
 
-var wantsNumbers=confirm("Would you like numbers?");
-var wantsLowerCaseLetters=confirm("Would you like lowercase letters?");
-var wantsUpperCaseLetters=confirm("Would you like uppercase letters?");
-var wantsSpecialCharacters=confirm("Would you like special characters?");
-
-if (!wantsNumbers && !wantsLowerCaseLetters && !wantsUpperCaseLetters && !wantsSpecialCharacters) {
-  alert("No Character types were selected. Please chose at least one option.");
-  getPasswordLength();
-};
 //not looping correctly back to top.
 
-console.log("Numbers", wantsNumbers, "Lowercase", wantsLowerCaseLetters, "Upper case", wantsUpperCaseLetters, "Special Characters", wantsSpecialCharacters);
+//console.log("Numbers", wantsNumbers, "Lowercase", wantsLowerCaseLetters, "Upper case", wantsUpperCaseLetters, "Special Characters", THE_SPECIAL_CHARACTER_CODE);
 
 
 
@@ -136,6 +124,24 @@ console.log("Uppercase character pool", upperCaseLetterPool, "Lowercase characte
 function generatedPassword() {
   var generatedPassword = "";
   var characterPool = [];
+  var requestedPasswordLength = getPasswordLength();//????
+console.log("This is the password that the user requested:", requestedPasswordLength);//???
+  var wantsNumbers=false;
+  var wantsLowerCaseLetters=false;
+  var wantsUpperCaseLetters=false;
+  var wantsSpecialCharacters=false;
+do {
+  wantsNumbers=confirm("Would you like numbers?");
+  wantsLowerCaseLetters=confirm("Would you like lowercase letters?");
+  wantsUpperCaseLetters=confirm("Would you like uppercase letters?");
+  wantsSpecialCharacters=confirm("Would you like special characters?");
+
+  if (!wantsNumbers && !wantsLowerCaseLetters && !wantsUpperCaseLetters && !wantsSpecialCharacters) {
+    alert("No Character types were selected. Please chose at least one option.");
+  }
+}
+while (!wantsNumbers && !wantsLowerCaseLetters && !wantsUpperCaseLetters && !wantsSpecialCharacters);
+
 
   if (wantsLowerCaseLetters) {
     var randomLowerCaseLetter = lowerCaseLetterPool[
@@ -171,26 +177,22 @@ function generatedPassword() {
   for (var i = generatedPassword.length; i < requestedPasswordLength; i++){
     var randomCharacter = characterPool[Math.floor(Math.random() * characterPool.length + 1)];
     generatedPassword += randomCharacter;
-    return generatedPassword;
   }
-  
-  return generatedPassword;
+  console.log(generatedPassword);
+  writePassword(generatedPassword);
+
 }
-generatedPassword();
 
 
-/*
-
-// Get references to the #generate element
+// Get references to the #generate element/*/
 var generateBtn = document.querySelector("#generate");
-
+/*
 // Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
+*/function writePassword(generatedPassword) {
   var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
+  passwordText.value = generatedPassword;
 }
 // Add event listener to generate button
-//generateBtn.addEventListener("click", writePassword);*/
+
+generateBtn.addEventListener("click", generatedPassword);
+
