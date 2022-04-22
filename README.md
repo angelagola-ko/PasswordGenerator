@@ -4,7 +4,7 @@ A website that asks for users input to generate a random password.
 
 Built With JavaScript/HTML/CSS.
 
-Website https://angelagola-ko.github.io/Portfolio/
+Website https://angelagola-ko.github.io/PasswordGenerator/
 
 # Example
 
