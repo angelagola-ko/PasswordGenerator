@@ -128,7 +128,7 @@ do {
   wantsSpecialCharacters=confirm("Would you like special characters?");
 
   if (!wantsNumbers && !wantsLowerCaseLetters && !wantsUpperCaseLetters && !wantsSpecialCharacters) {
-    alert("No Character types were selected. Please chose at least one option.");
+    alert("No Character types were selected. Please choose at least one option.");
   }
 }
 while (!wantsNumbers && !wantsLowerCaseLetters && !wantsUpperCaseLetters && !wantsSpecialCharacters);
